@@ -439,7 +439,7 @@ function App() {
             <div>
               <h3 className="text-xl font-bold mb-4">Diwakar Mehta</h3>
               <p className="text-gray-400">
-                Backend Developer based in Ludhiana, Punjab, India, specializing in building scalable and efficient server-side solutions.
+                I'm Backend Developer from Ludhiana, Punjab, India, specializing in building scalable and efficient server-side solutions.
               </p>
             </div>
             <div>
