@@ -101,3 +101,7 @@ html {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+canvas{
+  height: 100vh !important;
+}

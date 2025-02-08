@@ -1,266 +1,497 @@
-import React from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import { Code2, Database, Server, Cpu, ExternalLink, Github, Mail } from 'lucide-react';
-import { Background } from './components/Background';
+import React, { useEffect, useState, Suspense } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { Environment, OrbitControls } from '@react-three/drei';
+import Model from './components/models/Laptop';
+import {
+  Github,
+  Linkedin,
+  Mail,
+  ChevronDown,
+  Code,
+  Briefcase,
+  User,
+  ExternalLink,
+  Menu,
+  X,
+  Send,
+  Database,
+  Server,
+  Terminal,
+  Monitor,
+  Cpu,
+  Cloud,
+  Settings,
+  Layout,
+  TestTube,
+  Boxes,
+  Braces,
+  Network
+} from 'lucide-react';
+import { ParticlesBackground } from './components/ParticlesBackground';
+import { motion } from 'framer-motion';
 
-function ParallaxText({ children, y = 0 }) {
-  const ref = React.useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"]
-  });
-  
-  const yOffset = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, y]),
-    { stiffness: 50, damping: 15 }
-  );
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.8, 1, 1, 0.8]);
+function App() {
+  const [scrollY, setScrollY] = useState(0);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const menuItems = [
+    { label: 'About', href: '#about' },
+    { label: 'Skills', href: '#skills' },
+    { label: 'Projects', href: '#projects' },
+    { label: 'Experience', href: '#experience' },
+    { label: 'Contact', href: '#contact' },
+  ];
+
+  const skills = [
+    {
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+      name: 'Node.js',
+      color: 'bg-green-50'
+    },
+    {
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+      name: 'Express.js',
+      color: 'bg-blue-50'
+    },
+    {
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+      name: 'Vanilla Js',
+      color: 'bg-blue-50'
+    },
+    {
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/socketio/socketio-original.svg",
+      name: 'Socket.io',
+      color: 'bg-blue-50'
+    },
+    {
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+      name: 'Git',
+      color: 'bg-red-50'
+    },
+    // { 
+    //   icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
+    //   name: 'Linux',
+    //   color: 'bg-yellow-50'
+    // },
+    {
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons//mysql/mysql-original-wordmark.svg",
+      name: 'MySql',
+      color: 'bg-blue-50'
+    },
+    {
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sequelize/sequelize-original.svg",
+      name: 'Sequelize',
+      color: 'bg-white'
+    },
+    {
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+      name: 'MongoDB',
+      color: 'bg-green-50'
+    },
+    {
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongoose/mongoose-original.svg",
+      name: 'Mongoose',
+      color: 'bg-blue-50'
+    },
+    {
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-original.svg",
+      name: 'Jquery',
+      color: 'bg-red-50'
+    },
+    {
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg",
+      name: 'Postman',
+      color: 'bg-pink-50'
+    },
+    {
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg",
+      name: 'Bootstrap',
+      color: 'bg-pink-50'
+    },
+    {
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+      name: 'CSS',
+      color: 'bg-pink-50'
+    },
+    {
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+      name: 'Html',
+      color: 'bg-pink-50'
+    }
+  ];
+
+  const projects = [
+    {
+      name: "Candoorr",
+      description: "This modern dating app is designed to help users find meaningful connections based on their location, shared interests, and personalized preferences. The app provides an engaging and intuitive platform where users can create detailed profiles that reflect their personality, hobbies, and what they’re looking for in a partner.",
+      image: "https://images.pexels.com/photos/6833565/pexels-photo-6833565.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    },
+    {
+      name: "Conext",
+      description: "A mobile application designed to facilitate luggage delivery by allowing users to request a pickup while enabling the admin to assign a delivery person. The app ensures a seamless and secure delivery experience with features such as real-time tracking, one-to-one chat, notifications, invoice downloads, and online payments.",
+      image: "https://images.pexels.com/photos/7363101/pexels-photo-7363101.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    },
+    {
+      name: "Artist Anywhere",
+      description: "This app connects users with local artists for events, performances, and creative services. It allows users to easily discover artists based on their location, browse their profiles, view their portfolios, and make bookings directly through the app. Users can search for various types of artists using a map feature that shows artists within a specified radius from their current location.",
+      image: "https://images.pexels.com/photos/167491/pexels-photo-167491.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+    }
+  ]
+
+  const experiences = [
+    {
+      role: "Backend Developer",
+      company: "Cqlsys Technologies Pvt. Ltd",
+      duration: "2023 - 2024",
+      description: "As an experienced backend developer, I specialize in building RESTful APIs for frontend developers, ensuring seamless communication between the client and server. I have integrated third-party APIs to enhance project functionality, including payment gateways like Stripe and Pagalo for secure transactions. Additionally, I have developed admin panels using EJS for efficient project management and implemented real-time chat features using Socket.io, enabling smooth and interactive user experiences."
+    },
+    {
+      role: "Backend Developer",
+      company: "Cqlsys Technologies Pvt. Ltd",
+      duration: "2021 - 2023",
+      description: "I started my career as a backend developer, focusing on creating APIs and building admin panels. Over time, I gained expertise in developing scalable systems, optimizing database performance, and ensuring secure and efficient backend solutions for modern applications. I have also learned to implement JWT authentication for secure user access and FCM notifications to enhance real-time communication, making applications more interactive and user-friendly."
+    },
+
+  ]
 
   return (
-    <motion.div ref={ref} style={{ y: yOffset, opacity, scale }}>
-      {children}
-    </motion.div>
-  );
-}
+    <div className="relative min-h-screen bg-trasnsparent text-white">
+      {/* Navigation */}
+      {/* <nav className={`fixed w-full z-50 transition-all duration-300 ${scrollY > 50 ? 'bg-gray-900/90 backdrop-blur-sm shadow-lg' : 'bg-transparent'}`}> */}
+      <nav className={`fixed w-full z-50 transition-all duration-300 ${scrollY > 50 ? 'bg-transparent backdrop-blur-sm shadow-lg' : 'bg-transparent'}`}>
+        {/* <div className="max-w-7xl mx-auto px-4"> */}
+        <div className=" mx-auto px-4">
+          <div className="flex justify-between items-center h-16">
+            <a href="#" className="text-xl font-bold text-amber-500">DM</a>
 
-const skills = [
-  {
-    icon: Code2,
-    title: "Backend Development",
-    description: "Node.js · Express · NestJS · Python",
-    color: "from-blue-500 to-cyan-500"
-  },
-  {
-    icon: Database,
-    title: "Database Architecture",
-    description: "PostgreSQL · MongoDB · Redis · Cassandra",
-    color: "from-purple-500 to-pink-500"
-  },
-  {
-    icon: Server,
-    title: "Cloud Infrastructure",
-    description: "AWS · Docker · Kubernetes · Terraform",
-    color: "from-orange-500 to-red-500"
-  },
-  {
-    icon: Cpu,
-    title: "System Design",
-    description: "Microservices · Event-Driven · Scalability",
-    color: "from-green-500 to-emerald-500"
-  }
-];
-
-const projects = [
-  {
-    title: "Distributed Task Queue",
-    description: "High-performance task processing system handling millions of jobs daily",
-    tech: ["Python", "Redis", "PostgreSQL", "RabbitMQ"],
-    github: "https://github.com",
-    live: "https://example.com"
-  },
-  {
-    title: "Real-time Analytics API",
-    description: "Event processing pipeline for real-time data analytics and reporting",
-    tech: ["Node.js", "Kafka", "ClickHouse", "gRPC"],
-    github: "https://github.com",
-    live: "https://example.com"
-  },
-  {
-    title: "Cloud Infrastructure",
-    description: "Automated cloud infrastructure with high availability and disaster recovery",
-    tech: ["Terraform", "AWS", "Docker", "Kubernetes"],
-    github: "https://github.com",
-    live: "https://example.com"
-  }
-];
-
-export default function App() {
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-indigo-950 via-purple-950 to-black text-white overflow-hidden">
-      <Background />
-      
-      {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center relative px-4">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(79,70,229,0.15)_0,transparent_100%)]" />
-        <ParallaxText y={-100}>
-          <div className="text-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ 
-                duration: 1,
-                ease: [0.6, 0.01, -0.05, 0.95]
-              }}
+            {/* Menu Button */}
+            <button
+              className="p-2 hover:text-amber-500 transition-colors"
+              onClick={() => setIsMenuOpen(true)}
             >
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.8 }}
-                className="relative inline-block"
-              >
-                <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 mb-6 tracking-tight">
-                  Backend Engineer
-                </h1>
-                <div className="absolute -inset-x-6 -inset-y-4 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-pink-500/20 blur-xl -z-10" />
-              </motion.div>
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.8 }}
-                className="text-lg sm:text-xl text-indigo-200 max-w-2xl mx-auto px-4"
-              >
-                Crafting robust and scalable systems that power modern applications
-              </motion.p>
-            </motion.div>
+              <Menu className="w-8 h-8" />
+            </button>
           </div>
-        </ParallaxText>
+        </div>
+      </nav>
+
+      {/* Fullscreen Menu Overlay */}
+      {isMenuOpen && (
+        <div className="fixed inset-0 bg-transparent backdrop-blur-lg shadow-lg z-50 backdrop-blur-sm animate-menu-slide">
+          <div className="h-full flex flex-col">
+            <div className="flex justify-end p-4">
+              <button
+                className="p-2 hover:text-amber-500 transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <X className="w-8 h-8" />
+              </button>
+            </div>
+            <div className="flex-1 flex flex-col items-center justify-center">
+              {menuItems.map((item, index) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="text-4xl font-bold my-4 hover:text-amber-500 transition-all hover:scale-110"
+                  onClick={() => setIsMenuOpen(false)}
+                  style={{
+                    animationDelay: `${index * 0.1}s`,
+                    animation: 'slideIn 0.5s ease-out forwards',
+                    opacity: 0,
+                    transform: 'translateY(20px)'
+                  }}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Hero Section with Particles */}
+      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+        <ParticlesBackground />
+        <div className="relative z-20 text-center px-4">
+          <h3 className="text-6xl font-bold mb-6 animate-fade-in">
+            Hi<motion.span className="inline-block" animate={{ rotate: [0, 20, 0, -20, 0] }}
+              transition={{ repeat: Infinity, duration: 1, ease: "easeInOut" }}>👋</motion.span> I'm
+          </h3>
+          <h1 className="text-6xl font-bold mb-6 animate-fade-in">
+            Diwakar Mehta
+          </h1>
+          <p className="text-2xl mb-8 text-amber-500 animate-slide-up">
+            Software Engineer
+          </p>
+          <div className="flex gap-6 justify-center mb-12">
+            <a href="#" className="transform hover:scale-110 transition-transform hover:text-amber-500">
+              <Github className="w-8 h-8" />
+            </a>
+            <a href="#" className="transform hover:scale-110 transition-transform hover:text-amber-500">
+              <Linkedin className="w-8 h-8" />
+            </a>
+            <a href="#" className="transform hover:scale-110 transition-transform hover:text-amber-500">
+              <Mail className="w-8 h-8" />
+            </a>
+          </div>
+          <ChevronDown className="w-12 h-12 mx-auto animate-bounce text-amber-500" />
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="relative">
+        <ParticlesBackground />
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex items-center gap-4 mb-8">
+            <User className="w-8 h-8 text-amber-500" />
+            <h2 className="text-4xl font-bold">About Me</h2>
+          </div>
+          <p className="text-xl text-gray-300 leading-relaxed">
+            {/* I'm a passionate backend developer with expertise in building scalable systems
+            and robust APIs. With a deep understanding of server-side technologies and
+            database management, I create efficient solutions that power modern applications. */}
+            I'm a passionate backend developer with expertise in building scalable systems and robust APIs. With a deep understanding of server-side technologies, database management, I create efficient and secure solutions that power modern applications. I specialize in optimizing performance, ensuring data integrity, and implementing authentication and security best practices. My experience includes working with Node.js, express.js, RESTful and MySql APIs, and integrating third-party services to enhance application functionality. Always eager to learn and adapt, I thrive in building innovative and efficient backend solutions
+          </p>
+        </div>
       </section>
 
       {/* Skills Section */}
-      <section className="py-32 relative px-4">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(79,70,229,0.15),transparent_50%)]" />
-        <ParallaxText y={50}>
-          <div className="container mx-auto">
-            <motion.h2 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-3xl sm:text-4xl font-bold text-center mb-20 bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400"
-            >
-              Core Expertise
-            </motion.h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-7xl mx-auto">
-              {skills.map((skill, index) => (
-                <motion.div
-                  key={skill.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={{ 
-                    scale: 1.05,
-                    transition: { duration: 0.2 }
-                  }}
-                  className="group relative p-6 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-300"
-                >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${skill.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-xl`} />
-                  <skill.icon className={`w-12 h-12 mb-4 bg-gradient-to-br ${skill.color} rounded-lg p-2 text-white`} />
-                  <h3 className="text-xl font-bold mb-2 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-indigo-200 transition-all duration-300">
-                    {skill.title}
-                  </h3>
-                  <p className="text-indigo-200 group-hover:text-white/80 transition-colors duration-300">
-                    {skill.description}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
+      <section id="skills" className="relative py-20">
+        <ParticlesBackground />
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex items-center gap-4 mb-12">
+            <Cpu className="w-8 h-8 text-amber-500" />
+            <h2 className="text-4xl font-bold">Skills</h2>
           </div>
-        </ParallaxText>
+          <div className="grid grid-cols-4 md:grid-cols-6 gap-6">
+            {skills.map((skill, index) => (
+              <motion.div
+                animate={{
+                  borderRadius: ["0%", "0%", "50%", "50%", "0%"],
+                  y: [-50, -30, 0, -30, -50], // Floating effect
+                }}
+                transition={{
+                  duration: 4,
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                  repeatDelay: 0,
+                }}
+                key={skill.name}
+                className="flex flex-col items-center group"
+                style={{
+                  animationDelay: `${index * 0.1}s`,
+                  animation: 'fadeIn 0.5s ease-out forwards',
+                  opacity: 0
+                }}
+              >
+                <div className={`skill-icon p-6 rounded-full ${skill.color} mb-4 group-hover:shadow-lg backdrop-blur-sm`}>
+                  <img
+                    src={skill.icon}
+                    alt={skill.name}
+                    className="w-12 h-12"
+                  />
+                </div>
+                <span className="text-gray-300 font-medium">{skill.name}</span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* Projects Section */}
-      <section className="py-32 relative px-4">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(79,70,229,0.15),transparent_50%)]" />
-        <ParallaxText y={-50}>
-          <div className="container mx-auto">
-            <motion.h2 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-3xl sm:text-4xl font-bold text-center mb-20 bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400"
-            >
-              Featured Work
-            </motion.h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto">
-              {projects.map((project, index) => (
+      <section id="projects" className="relative py-20">
+        <ParticlesBackground />
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex items-center gap-4 mb-12">
+            <Code className="w-8 h-8 text-amber-500" />
+            <h2 className="text-4xl font-bold">Projects</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {projects.map((project) => (
+              <motion.div
+                key={project.name}
+                className="group relative bg-gray-800/50 backdrop-blur-sm rounded-lg overflow-hidden shadow-md"
+                animate={{
+                  y: [0, -10, 0], // Floating effect (infinite)
+                }}
+                transition={{
+                  duration: 3,
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                }}
+                whileHover={{
+                  rotate: -2, // Subtle tilt effect
+                  boxShadow: "0px 10px 30px rgba(255, 165, 0, 0.3)", // Glow effect
+                  y: -5, // Slide up slightly
+                }}
+              >
                 <motion.div
-                  key={project.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={{ y: -10 }}
-                  className="group relative p-6 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-300"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
-                  <h3 className="text-xl font-bold mb-3 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-indigo-400 group-hover:to-purple-400 transition-all duration-300">
-                    {project.title}
-                  </h3>
-                  <p className="text-indigo-200 mb-4 group-hover:text-white/80 transition-colors duration-300">
+                  className="h-48 bg-cover bg-center filter grayscale group-hover:grayscale-0"
+                  style={{ backgroundImage: `url(${project.image})` }}
+                  whileHover={{
+                    rotate: [0, 3, -3, 0], // Wiggle effect on hover
+                    transition: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+                  }}
+                />
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2">{project.name}</h3>
+                  <p className="text-gray-400 mb-4">
                     {project.description}
                   </p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tech.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-3 py-1 text-sm rounded-full bg-white/10 text-indigo-200 border border-white/10 group-hover:border-white/20 group-hover:bg-white/15 transition-all duration-300"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="flex gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-white/70 hover:text-white transition-colors"
-                    >
-                      <Github className="w-5 h-5" />
-                    </a>
-                    <a
-                      href={project.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-white/70 hover:text-white transition-colors"
-                    >
-                      <ExternalLink className="w-5 h-5" />
-                    </a>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+                </div>
+              </motion.div>
+            ))}
           </div>
-        </ParallaxText>
+        </div>
+      </section>
+
+      {/* Experience Section */}
+      <section id="experience" className="relative py-20">
+        <ParticlesBackground />
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex items-center gap-4 mb-12">
+            <Briefcase className="w-8 h-8 text-amber-500" />
+            <h2 className="text-4xl font-bold">Experience</h2>
+          </div>
+          <div className="space-y-12">
+            {experiences.map((exp) => (
+              <div
+                key={exp.role}
+                className="relative pl-8 border-l-2 border-amber-500"
+              >
+                <div className="absolute -left-2 top-0 w-4 h-4 bg-amber-500 rounded-full" />
+                <h3 className="text-xl font-bold mb-2">{exp.role}</h3>
+                <p className="text-amber-500 mb-2">{exp.company} • {exp.duration}</p>
+                <p className="text-gray-400">
+                  {exp.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* Contact Section */}
-      <section className="py-32 relative px-4">
-        <ParallaxText y={30}>
-          <div className="container mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="relative inline-block"
-            >
-              <h2 className="text-3xl sm:text-4xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">
-                Let's Build Something
-              </h2>
-              <div className="absolute -inset-x-6 -inset-y-4 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-pink-500/20 blur-xl -z-10" />
-            </motion.div>
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-lg sm:text-xl text-indigo-200 mb-12 max-w-2xl mx-auto"
-            >
-              Looking for a backend engineer who can bring your ideas to life? Let's discuss your project.
-            </motion.p>
-            <motion.a
-              href="mailto:your.email@example.com"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-semibold hover:from-indigo-500 hover:via-purple-500 hover:to-pink-500 transition-all duration-300"
-            >
-              <Mail className="w-5 h-5" />
-              Get in Touch
-            </motion.a>
+      <section id="contact" className="relative py-20">
+        <ParticlesBackground />
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex items-center gap-4 mb-12">
+            <Mail className="w-8 h-8 text-amber-500" />
+            <h2 className="text-4xl font-bold">Contact Me</h2>
           </div>
-        </ParallaxText>
+          <form className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium mb-2">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  className="w-full px-4 py-2 bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  placeholder="Your name"
+                />
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium mb-2">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  className="w-full px-4 py-2 bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  placeholder="your@email.com"
+                />
+              </div>
+            </div>
+            <div>
+              <label htmlFor="message" className="block text-sm font-medium mb-2">
+                Message
+              </label>
+              <textarea
+                id="message"
+                rows={6}
+                className="w-full px-4 py-2 bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                placeholder="Your message..."
+              />
+            </div>
+            <button
+              type="submit"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-amber-500 hover:bg-amber-600 text-gray-900 rounded-lg font-medium transition-colors"
+            >
+              Send Message
+              <Send className="w-4 h-4" />
+            </button>
+          </form>
+        </div>
       </section>
+
+      {/* Footer */}
+      <footer className="relative py-12">
+        <ParticlesBackground />
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+              <h3 className="text-xl font-bold mb-4">Diwakar Mehta</h3>
+              <p className="text-gray-400">
+                I'm Backend Developer from Ludhiana, Punjab, India, specializing in building scalable and efficient server-side solutions.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold mb-4">Quick Links</h3>
+              <ul className="space-y-2">
+                {menuItems.map((item) => (
+                  <li key={item.label}>
+                    <a href={item.href} className="text-gray-400 hover:text-amber-500 transition-colors">
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold mb-4">Connect</h3>
+              <div className="flex gap-4">
+                <a href="#" className="text-gray-400 hover:text-amber-500 transition-colors">
+                  <Github className="w-6 h-6" />
+                </a>
+                <a href="#" className="text-gray-400 hover:text-amber-500 transition-colors">
+                  <Linkedin className="w-6 h-6" />
+                </a>
+                <a href="#" className="text-gray-400 hover:text-amber-500 transition-colors">
+                  <Mail className="w-6 h-6" />
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className="mt-12 pt-8 border-t border-gray-800 text-center text-gray-400">
+            {/* <p>© {new Date().getFullYear()} Diwakar Mehta. All rights reserved.</p> */}
+            <p>© {`2025`} Diwakar Mehta. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+
+      {/* models */}
+      {/* <section>
+        <Canvas>
+          <ambientLight intensity={1} />
+          <OrbitControls enableZoom={false} />
+          <Suspense fallback={null}>
+            <Model />
+          </Suspense>
+          <Environment preset="studio"/>
+        </Canvas>
+      </section> */}
     </div>
   );
 }
+
+export default App;
