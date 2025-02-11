@@ -34,6 +34,51 @@ function App() {
   const [scrollY, setScrollY] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(null);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    // Handle form submission here, e.g., send data to a server
+    setLoading(true);
+    try {
+      const response = await fetch("/api/sendEmail", {
+        // mode: "no-cors",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData)
+      })
+      console.log("response---", response)
+      console.log("response---", response.body)
+      if (response.ok) {
+        setSuccess("Your message has been sent successfully!");
+        setFormData({ name: "", email: "", message: "" });
+        setLoading(false)
+      } else {
+        setSuccess("Failed to send message. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setSuccess("Something went wrong. Try again later.");
+      setLoading(false)
+    }
+
+    setLoading(false);
+  };
+
+
   useEffect(() => {
     const handleScroll = () => {
       setScrollY(window.scrollY);
@@ -440,7 +485,7 @@ function App() {
             <Mail className="w-8 h-8 text-amber-500" />
             <h2 className="text-4xl font-bold">Contact Me</h2>
           </div>
-          <form className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium mb-2">
@@ -449,6 +494,8 @@ function App() {
                 <input
                   type="text"
                   id="name"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="w-full px-4 py-2 bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
                   placeholder="Your name"
                 />
@@ -460,6 +507,8 @@ function App() {
                 <input
                   type="email"
                   id="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="w-full px-4 py-2 bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
                   placeholder="your@email.com"
                 />
@@ -471,6 +520,8 @@ function App() {
               </label>
               <textarea
                 id="message"
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 rows={6}
                 className="w-full px-4 py-2 bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
                 placeholder="Your message..."
