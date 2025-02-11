@@ -1,5 +1,5 @@
-import React, { useEffect, useState, Suspense } from 'react';
-import { Canvas } from '@react-three/fiber';
+import React, { useEffect, useState, Suspense, useRef } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { Environment, OrbitControls } from '@react-three/drei';
 import Model from './components/models/Laptop';
 import {
@@ -218,33 +218,58 @@ function App() {
       )}
 
       {/* Hero Section with Particles */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <ParticlesBackground />
-        <div className="relative z-20 text-center px-4">
-          <h3 className="text-6xl font-bold mb-6 animate-fade-in">
-            Hi<motion.span className="inline-block" animate={{ rotate: [0, 20, 0, -20, 0] }}
-              transition={{ repeat: Infinity, duration: 1, ease: "easeInOut" }}>👋</motion.span> I'm
+      <section className="relative h-screen flex flex-col md:grid md:grid-cols-2 overflow-hidden">
+        {/* Left Side - Text Content */}
+        <div className="flex flex-col items-center justify-center text-center ml-40 py-24 md:px-8 z-20">
+          <h3 className="text-4xl md:text-6xl font-bold mb-4 md:mb-6 animate-fade-in">
+            Hi
+            <motion.span
+              className="inline-block"
+              animate={{ rotate: [0, 20, 0, -20, 0] }}
+              transition={{ repeat: Infinity, duration: 1, ease: "easeInOut" }}
+            >
+              👋
+            </motion.span>
+            I'm
           </h3>
-          <h1 className="text-6xl font-bold mb-6 animate-fade-in">
+          <h1 className="text-4xl md:text-6xl font-bold mb-4 md:mb-6 animate-fade-in">
             Diwakar Mehta
           </h1>
-          <p className="text-2xl mb-8 text-amber-500 animate-slide-up">
+          <p className="text-xl md:text-2xl mb-6 md:mb-8 text-amber-500 animate-slide-up">
             Software Engineer
           </p>
-          <div className="flex gap-6 justify-center mb-12">
+          <div className="flex gap-4 md:gap-6 justify-center mb-8 md:mb-12">
             <a href="#" className="transform hover:scale-110 transition-transform hover:text-amber-500">
-              <Github className="w-8 h-8" />
+              <Github className="w-6 md:w-8 h-6 md:h-8" />
             </a>
             <a href="#" className="transform hover:scale-110 transition-transform hover:text-amber-500">
-              <Linkedin className="w-8 h-8" />
+              <Linkedin className="w-6 md:w-8 h-6 md:h-8" />
             </a>
             <a href="#" className="transform hover:scale-110 transition-transform hover:text-amber-500">
-              <Mail className="w-8 h-8" />
+              <Mail className="w-6 md:w-8 h-6 md:h-8" />
             </a>
           </div>
-          <ChevronDown className="w-12 h-12 mx-auto animate-bounce text-amber-500" />
+          <ChevronDown className="w-10 md:w-12 h-10 md:h-12 mx-auto animate-bounce text-amber-500" />
+        </div>
+
+        {/* Right Side - Large 3D Model */}
+        <div className="flex items-center justify-center w-full h-full">
+          <Canvas 
+            camera={{ position: [0, 2, 5], fov: 70 }}
+            className="w-full h-auto aspect-square"
+          >
+            <ambientLight intensity={20} />
+            <OrbitControls enableZoom={false} minDistance={2} maxDistance={20} enablePan={false} />
+            <Suspense fallback={null}>
+              <Model  scale={[1.2, 1.2, 1.2]} rotation={[0, Math.PI, 0]} />
+            </Suspense>
+            {/* <Environment preset="studio" /> */}
+          </Canvas>
         </div>
       </section>
+
+
+
 
       {/* About Section */}
       <section id="about" className="relative">
@@ -478,18 +503,6 @@ function App() {
           </div>
         </div>
       </footer>
-
-      {/* models */}
-      {/* <section>
-        <Canvas>
-          <ambientLight intensity={1} />
-          <OrbitControls enableZoom={false} />
-          <Suspense fallback={null}>
-            <Model />
-          </Suspense>
-          <Environment preset="studio"/>
-        </Canvas>
-      </section> */}
     </div>
   );
 }

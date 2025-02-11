@@ -7,13 +7,21 @@ Source: https://sketchfab.com/3d-models/laptop-alienpredator-194969af91df43788b6
 Title: Laptop AlienPredator
 */
 
-import React from 'react'
+import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber';
 
 export default function Model(props) {
   const { nodes, materials } = useGLTF('/src/components/models/laptop.gltf')
+  const modelRef = useRef();
+  
+    useFrame(()=>{
+      if(modelRef.current){
+        modelRef.current.rotation.y += 0.01
+      }
+    })
   return (
-    <group {...props} dispose={null}>
+    <group ref={modelRef} {...props} dispose={null}>
       <group position={[0.388, 0.301, 0.317]} scale={[0.046, 0.016, 0.053]}>
         <mesh geometry={nodes.Object_4.geometry} material={materials['Material.006']} />
         <mesh geometry={nodes.Object_5.geometry} material={materials['Material.031']} />
