@@ -220,7 +220,7 @@ function App() {
       {/* Hero Section with Particles */}
       <section className="relative h-screen flex flex-col md:grid md:grid-cols-2 overflow-hidden">
         {/* Left Side - Text Content */}
-        <div className="flex flex-col items-center justify-center text-center ml-40 py-24 md:px-8 z-20">
+        <div className="flex flex-col items-center justify-center text-center py-24 md:px-8 z-20">
           <h3 className="text-4xl md:text-6xl font-bold mb-4 md:mb-6 animate-fade-in">
             Hi
             <motion.span
@@ -253,19 +253,47 @@ function App() {
         </div>
 
         {/* Right Side - Large 3D Model */}
-        <div className="flex items-center justify-center w-full h-full">
-          <Canvas 
+        <div className="flex items-center justify-center w-full h-full lg:mt-32 xl:mt-32">
+          <Canvas
+            shadows
             camera={{ position: [0, 2, 5], fov: 70 }}
             className="w-full h-auto aspect-square"
           >
-            <ambientLight intensity={20} />
+            {/* Ambient Light for General Lighting */}
+            <ambientLight intensity={10} />
+
+            {/* Yellow Light Above to Cast Shadow Below */}
+            <pointLight
+              position={[0, 5, 0]}
+              intensity={10}
+              color="yellow"
+              castShadow
+              shadow-mapSize-width={1024}
+              shadow-mapSize-height={1024}
+              shadow-bias={-0.0001}
+            />
+
+            {/* Ground Plane to Catch Shadows */}
+            <mesh receiveShadow position={[0, -0.5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+              <planeGeometry args={[10, 10]} />
+              <shadowMaterial opacity={0.5} />
+            </mesh>
+
+            {/* Orbit Controls - No Zoom */}
             <OrbitControls enableZoom={false} minDistance={2} maxDistance={20} enablePan={false} />
+
+            {/* Floating Laptop Model with Shadows */}
             <Suspense fallback={null}>
-              <Model  scale={[1.2, 1.2, 1.2]} rotation={[0, Math.PI, 0]} />
+              <Model
+                scale={[1.2, 1.2, 1.2]}
+                rotation={[0, Math.PI, 0]}
+                position={[0, 0.5, 0]}  // Floating effect
+                castShadow
+              />
             </Suspense>
-            {/* <Environment preset="studio" /> */}
           </Canvas>
         </div>
+
       </section>
 
 
@@ -296,7 +324,7 @@ function App() {
             <Cpu className="w-8 h-8 text-amber-500" />
             <h2 className="text-4xl font-bold">Skills</h2>
           </div>
-          <div className="grid grid-cols-4 md:grid-cols-6 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-6 sm:p-10 md:p-10 lg:p-0 xl:p-0">
             {skills.map((skill, index) => (
               <motion.div
                 animate={{
