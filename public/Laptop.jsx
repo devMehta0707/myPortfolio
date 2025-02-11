@@ -12,7 +12,7 @@ import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber';
 
 export default function Model(props) {
-  const { nodes, materials } = useGLTF('/src/components/models/laptop.gltf')
+  const { nodes, materials } = useGLTF('/laptop.gltf')
   const modelRef = useRef();
   
     useFrame(()=>{
@@ -87,4 +87,4 @@ export default function Model(props) {
   )
 }
 
-useGLTF.preload('/src/components/models/laptop.gltf')
+useGLTF.preload('/laptop.gltf')

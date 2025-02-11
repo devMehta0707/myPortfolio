@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Suspense, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Environment, OrbitControls } from '@react-three/drei';
-import Model from './components/models/Laptop';
+import Model from '../public/Laptop';
 import {
   Github,
   Linkedin,
