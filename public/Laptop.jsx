@@ -17,7 +17,7 @@ export default function Model(props) {
   
     useFrame(()=>{
       if(modelRef.current){
-        modelRef.current.rotation.y += 0.01
+        modelRef.current.rotation.y += 0.002
       }
     })
   return (
