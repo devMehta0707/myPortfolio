@@ -301,14 +301,23 @@ function App() {
         <div className="flex items-center justify-center w-full h-full lg:mt-0 z-40">
           <Canvas
             shadows
-            camera={{ position: [0, 2, 5], fov: 70 }}  // Adjusted camera for better view
+            camera={{ position: [2, 2, 5], fov: 70 }}  // Adjusted camera for better view
             className="w-full h-auto aspect-square"
           >
             {/* Ambient Light */}
-            <ambientLight intensity={1.5} />
+            <ambientLight intensity={2.0} />
+
+            {/* Hemisphere Light for Soft Natural Illumination */}
+        <hemisphereLight skyColor={"#ffffff"} groundColor={"#444444"} intensity={1.2} />
 
             {/* Directional Light for Shadows */}
-            <directionalLight position={[3, 5, 3]} intensity={3} castShadow />
+            <directionalLight position={[4, 8, 1]} intensity={3} castShadow />
+
+            {/* Additional Back Light (Fill Light) */}
+            <directionalLight position={[-4, 5, -3]} intensity={1.5} />
+
+            {/* Additional Side Light */}
+        <pointLight position={[2, 3, 2]} intensity={1} />
 
             {/* Ground Plane for Shadows */}
             <mesh receiveShadow position={[0, -0.5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
