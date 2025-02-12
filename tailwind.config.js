@@ -4,5 +4,10 @@ export default {
   theme: {
     extend: {},
   },
+  // variants: {
+  //   extend: {
+  //     margin: ['responsive'], // Ensure margin is responsive
+  //   },
+  // },
   plugins: [],
 };

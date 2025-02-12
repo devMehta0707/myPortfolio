@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Suspense, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Environment, OrbitControls } from '@react-three/drei';
-import Model from '../public/Laptop';
+import Model from '../public/models/rogStrix/Strix';
 import {
   Github,
   Linkedin,
@@ -263,9 +263,9 @@ function App() {
       )}
 
       {/* Hero Section with Particles */}
-      <section className="relative h-screen flex flex-col md:grid md:grid-cols-2 overflow-hidden">
+      <section className="relative h-screen flex flex-col md:flex-col lg:grid lg:grid-cols-2 overflow-hidden">
         {/* Left Side - Text Content */}
-        <div className="flex flex-col items-center justify-center text-center py-24 md:px-8 z-20">
+        <div className="flex flex-col items-center justify-center text-center px-4 sm:px-8 md:pt-24 z-20">
           <h3 className="text-4xl md:text-6xl font-bold mb-4 md:mb-6 animate-fade-in">
             Hi
             <motion.span
@@ -298,48 +298,40 @@ function App() {
         </div>
 
         {/* Right Side - Large 3D Model */}
-        <div className="flex items-center justify-center w-full h-full lg:mt-32 xl:mt-32">
+        <div className="flex items-center justify-center w-full h-full lg:mt-0 z-40">
           <Canvas
             shadows
-            camera={{ position: [0, 2, 5], fov: 70 }}
+            camera={{ position: [0, 2, 5], fov: 70 }}  // Adjusted camera for better view
             className="w-full h-auto aspect-square"
           >
-            {/* Ambient Light for General Lighting */}
-            <ambientLight intensity={10} />
+            {/* Ambient Light */}
+            <ambientLight intensity={1.5} />
 
-            {/* Yellow Light Above to Cast Shadow Below */}
-            <pointLight
-              position={[0, 5, 0]}
-              intensity={10}
-              color="yellow"
-              castShadow
-              shadow-mapSize-width={1024}
-              shadow-mapSize-height={1024}
-              shadow-bias={-0.0001}
-            />
+            {/* Directional Light for Shadows */}
+            <directionalLight position={[3, 5, 3]} intensity={3} castShadow />
 
-            {/* Ground Plane to Catch Shadows */}
+            {/* Ground Plane for Shadows */}
             <mesh receiveShadow position={[0, -0.5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
               <planeGeometry args={[10, 10]} />
               <shadowMaterial opacity={0.5} />
             </mesh>
 
             {/* Orbit Controls - No Zoom */}
-            <OrbitControls enableZoom={false} minDistance={2} maxDistance={20} enablePan={false} />
+            <OrbitControls enableZoom={false} minDistance={1} maxDistance={20} enablePan={false} />
 
-            {/* Floating Laptop Model with Shadows */}
+            {/* 3D Laptop Model - Adjusted Size and Rotation */}
             <Suspense fallback={null}>
               <Model
-                scale={[1.2, 1.2, 1.2]}
-                rotation={[0, Math.PI, 0]}
-                position={[0, 0.5, 0]}  // Floating effect
-                castShadow
+                scale={[0.8, 0.8, 0.8]} // Reduced size
+                rotation={[0, 0, 0]} // Front-facing laptop
+                position={[-1.2, -2, 0.5]} // Adjusted positioning
               />
             </Suspense>
           </Canvas>
         </div>
-
       </section>
+
+
 
 
 

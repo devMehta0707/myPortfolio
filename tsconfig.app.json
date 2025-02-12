@@ -20,5 +20,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "public/Laptop.jsx"]
+  "include": ["src", "public/models/alienware/Laptop.jsx"]
 }
