@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 import { ParticlesBackground } from './components/ParticlesBackground';
 import { motion } from 'framer-motion';
+import Loader from './components/Loader';
 
 function App() {
   const [scrollY, setScrollY] = useState(0);
@@ -204,6 +205,7 @@ function App() {
 
   return (
     <div className="relative min-h-screen bg-trasnsparent text-white">
+      {loading ? <Loader/> : ""}
       {/* Navigation */}
       {/* <nav className={`fixed w-full z-50 transition-all duration-300 ${scrollY > 50 ? 'bg-gray-900/90 backdrop-blur-sm shadow-lg' : 'bg-transparent'}`}> */}
       <nav className={`fixed w-full z-50 transition-all duration-300 ${scrollY > 50 ? 'bg-transparent backdrop-blur-sm shadow-lg' : 'bg-transparent'}`}>
@@ -279,13 +281,13 @@ function App() {
             Software Engineer
           </p>
           <div className="flex gap-4 md:gap-6 justify-center mb-8 md:mb-12">
-            <a href="#" className="transform hover:scale-110 transition-transform hover:text-amber-500">
+            <a href="https://github.com/devMehta0707" target='_blank' className="transform hover:scale-110 transition-transform hover:text-amber-500">
               <Github className="w-6 md:w-8 h-6 md:h-8" />
             </a>
-            <a href="#" className="transform hover:scale-110 transition-transform hover:text-amber-500">
+            <a href="https://www.linkedin.com/in/diwakar-mehta/" target='_blank' className="transform hover:scale-110 transition-transform hover:text-amber-500">
               <Linkedin className="w-6 md:w-8 h-6 md:h-8" />
             </a>
-            <a href="#" className="transform hover:scale-110 transition-transform hover:text-amber-500">
+            <a href="mailto:officialdev.mehta@gmail.com" className="transform hover:scale-110 transition-transform hover:text-amber-500">
               <Mail className="w-6 md:w-8 h-6 md:h-8" />
             </a>
           </div>
