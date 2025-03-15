@@ -2,6 +2,8 @@ import React, { useEffect, useState, Suspense, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Environment, OrbitControls } from '@react-three/drei';
 import Model from '../public/models/rogStrix/Strix';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   Github,
   Linkedin,
@@ -48,8 +50,8 @@ function App() {
     // Handle form submission here, e.g., send data to a server
     setLoading(true);
     try {
-      const response = await fetch("/api/sendEmail", {
-        // mode: "no-cors",
+      const response = await fetch("https://diwakarmehta.vercel.app/api/sendEmail", {
+        mode: "no-cors",
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -59,6 +61,7 @@ function App() {
       console.log("response---", response)
       console.log("response---", response.body)
       if (response.ok) {
+        toast(`Email Sent Successfully`)
         setSuccess("Your message has been sent successfully!");
         setFormData({ name: "", email: "", message: "" });
         setLoading(false)
@@ -205,7 +208,20 @@ function App() {
 
   return (
     <div className="relative min-h-screen bg-trasnsparent text-white">
-      {loading ? <Loader/> : ""}
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        // transition={Bounce}
+      />
+      {loading ? <Loader /> : ""}
       {/* Navigation */}
       {/* <nav className={`fixed w-full z-50 transition-all duration-300 ${scrollY > 50 ? 'bg-gray-900/90 backdrop-blur-sm shadow-lg' : 'bg-transparent'}`}> */}
       <nav className={`fixed w-full z-50 transition-all duration-300 ${scrollY > 50 ? 'bg-transparent backdrop-blur-sm shadow-lg' : 'bg-transparent'}`}>
@@ -305,7 +321,7 @@ function App() {
             <ambientLight intensity={2.0} />
 
             {/* Hemisphere Light for Soft Natural Illumination */}
-        <hemisphereLight skyColor={"#ffffff"} groundColor={"#444444"} intensity={1.2} />
+            <hemisphereLight skyColor={"#ffffff"} groundColor={"#444444"} intensity={1.2} />
 
             {/* Directional Light for Shadows */}
             <directionalLight position={[4, 8, 1]} intensity={3} castShadow />
@@ -314,7 +330,7 @@ function App() {
             <directionalLight position={[-4, 5, -3]} intensity={1.5} />
 
             {/* Additional Side Light */}
-        <pointLight position={[2, 3, 2]} intensity={1} />
+            <pointLight position={[2, 3, 2]} intensity={1} />
 
             {/* Ground Plane for Shadows */}
             <mesh receiveShadow position={[0, -0.5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
