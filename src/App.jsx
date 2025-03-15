@@ -278,7 +278,7 @@ function App() {
       {/* Hero Section with Particles */}
       <section className="relative h-screen flex flex-col md:flex-col lg:grid lg:grid-cols-2 overflow-hidden">
         {/* Left Side - Text Content */}
-        <div className="flex flex-col items-center justify-center text-center px-4 max-sm:mt-20 sm:px-8 md:pt-24 z-20">
+        <div className="flex flex-col items-center justify-center text-center px-4 max-sm:mt-32 sm:px-8 md:pt-24 z-20">
           <h3 className="text-4xl md:text-6xl font-bold mb-4 md:mb-6 animate-fade-in">
             Hi
             <motion.span
