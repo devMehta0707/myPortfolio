@@ -50,8 +50,8 @@ function App() {
     // Handle form submission here, e.g., send data to a server
     setLoading(true);
     try {
-      const response = await fetch("https://diwakarmehta.vercel.app/api/sendEmail", {
-        mode: "no-cors",
+      const response = await fetch("/api/sendEmail", {
+        // mode: "no-cors",
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -13,8 +13,8 @@ import { useGLTF } from '@react-three/drei'
 export default function Model(props) {
   const { nodes, materials } = useGLTF('/models/rogStrix/strix.gltf')
   return (
-    <group {...props} dispose={null}>
-      <group position={[1.5, 3.395, 1.325]} scale={2.299}>
+    <group {...props} dispose={null} >
+      <group position={[1.5, 3.395, 1.325]} scale={3}>
         <group position={[0.368, -0.441, -0.295]} rotation={[0, -0.747, 0]} scale={0.06}>
           <mesh geometry={nodes.Object_9.geometry} material={materials.Merah} />
           <mesh geometry={nodes.Object_10.geometry} material={materials.material} />
@@ -35,7 +35,7 @@ export default function Model(props) {
         <group position={[0, -0.446, -0.009]} scale={0.435}>
           <mesh geometry={nodes.Object_27.geometry} material={materials.Metal_1} />
           <mesh geometry={nodes.Object_28.geometry} material={materials.Touchpad} />
-          <mesh geometry={nodes.Object_29.geometry} material={materials.Metal_2} />
+          <mesh geometry={nodes.Object_29.geometry} material={materials.Metal_2}  material-color="lightgreen"/>
           <mesh geometry={nodes.Object_30.geometry} material={materials.Lightbar} />
         </group>
         <group position={[0.6, -0.441, -0.091]} scale={0.032}>
@@ -55,9 +55,9 @@ export default function Model(props) {
           <mesh geometry={nodes.Object_108.geometry} material={materials.Logo} />
           <mesh geometry={nodes.Object_109.geometry} material={materials.material_0} />
         </group>
-        <mesh geometry={nodes.Object_5.geometry} material={materials.Logo_AMD} position={[-0.636, -0.445, 0.153]} scale={0.045} />
+        <mesh geometry={nodes.Object_5.geometry} material={materials.Logo_AMD} position={[-0.636, -0.445, 0.153]} scale={0.045}  />
         <mesh geometry={nodes.Object_7.geometry} material={materials.material} position={[0.612, -0.441, -0.357]} scale={0.008} />
-        <mesh geometry={nodes.Object_14.geometry} material={materials.Teks_Bawah} position={[-0.653, -0.524, -0.441]} rotation={[0, 0, Math.PI]} scale={0.105} />
+        <mesh geometry={nodes.Object_14.geometry} material={materials.Teks_Bawah} position={[-0.653, -0.524, -0.441]} rotation={[0, 0, Math.PI]} scale={0.105} material-color="red" />
         <mesh geometry={nodes.Object_32.geometry} material={materials.Keyboard} position={[-0.476, -0.441, -0.019]} scale={0.032} />
         <mesh geometry={nodes.Object_34.geometry} material={materials.Keyboard} position={[-0.512, -0.441, -0.092]} scale={0.032} />
         <mesh geometry={nodes.Object_36.geometry} material={materials.Keyboard} position={[-0.531, -0.441, -0.164]} scale={0.032} />
