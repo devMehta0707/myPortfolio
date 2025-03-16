@@ -578,13 +578,13 @@ function App() {
             <div>
               <h3 className="text-xl font-bold mb-4">Connect</h3>
               <div className="flex gap-4">
-                <a href="#" className="text-gray-400 hover:text-amber-500 transition-colors">
+                <a href="https://github.com/devMehta0707" target='_blank' className="text-gray-400 hover:text-amber-500 transition-colors">
                   <Github className="w-6 h-6" />
                 </a>
-                <a href="#" className="text-gray-400 hover:text-amber-500 transition-colors">
+                <a href="https://www.linkedin.com/in/diwakar-mehta/" target='_blank' className="text-gray-400 hover:text-amber-500 transition-colors">
                   <Linkedin className="w-6 h-6" />
                 </a>
-                <a href="#" className="text-gray-400 hover:text-amber-500 transition-colors">
+                <a href="mailto:officialdev.mehta@gmail.com" className="text-gray-400 hover:text-amber-500 transition-colors">
                   <Mail className="w-6 h-6" />
                 </a>
               </div>
