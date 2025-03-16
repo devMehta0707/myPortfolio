@@ -509,6 +509,7 @@ function App() {
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="w-full px-4 py-2 bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
                   placeholder="Your name"
+                  required
                 />
               </div>
               <div>
@@ -522,6 +523,7 @@ function App() {
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="w-full px-4 py-2 bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
                   placeholder="your@email.com"
+                  required
                 />
               </div>
             </div>
@@ -536,6 +538,7 @@ function App() {
                 rows={6}
                 className="w-full px-4 py-2 bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
                 placeholder="Your message..."
+                required
               />
             </div>
             <button
