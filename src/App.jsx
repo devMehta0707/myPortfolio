@@ -312,14 +312,11 @@ function App() {
 
         {/* Right Side - Large 3D Model */}
         <div className="flex items-center justify-center w-full h-full lg:mt-0 z-40">
-          <Canvas
-            shadows
-            camera={{ position: [2, 2, 5], fov: 70 }}  // Adjusted camera for better view
-            className="w-full h-auto aspect-square"
+          <Canvas shadows camera={{ position: [-0, 2, 6], fov: 70 }} 
+          className="w-full h-auto aspect-square"
           >
             {/* Ambient Light */}
             <ambientLight intensity={2.0} />
-
             {/* Hemisphere Light for Soft Natural Illumination */}
             <hemisphereLight skyColor={"#ffffff"} groundColor={"#444444"} intensity={1.2} />
 
@@ -339,7 +336,6 @@ function App() {
             </mesh>
 
             {/* Orbit Controls - No Zoom */}
-            <OrbitControls enableZoom={false} minDistance={1} maxDistance={20} enablePan={false} />
 
             {/* 3D Laptop Model - Adjusted Size and Rotation */}
             <Suspense fallback={null}>
@@ -349,6 +345,7 @@ function App() {
                 position={[-1.2, -2, 0.5]} // Adjusted positioning
               />
             </Suspense>
+            <OrbitControls enableZoom={false} minDistance={1} maxDistance={20} maxPolarAngle={1} minPolarAngle={1} enablePan={false} />
           </Canvas>
         </div>
       </section>

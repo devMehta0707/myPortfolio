@@ -13,7 +13,7 @@ import { useGLTF } from '@react-three/drei'
 export default function Model(props) {
   const { nodes, materials } = useGLTF('/models/rogStrix/strix.gltf')
   return (
-    <group {...props} dispose={null} >
+    <group {...props} dispose={null}>
       <group position={[1.5, 3.395, 1.325]} scale={3}>
         <group position={[0.368, -0.441, -0.295]} rotation={[0, -0.747, 0]} scale={0.06}>
           <mesh geometry={nodes.Object_9.geometry} material={materials.Merah} />
