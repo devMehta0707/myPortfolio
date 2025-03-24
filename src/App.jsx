@@ -199,7 +199,7 @@ function App() {
     },
     {
       role: "Backend Developer",
-      company: "Cqlsys Technologies Pvt. Ltd",
+      company: "Promatics Technologies Pvt. Ltd",
       duration: "2021 - 2023",
       description: "I started my career as a backend developer, focusing on creating APIs and building admin panels. Over time, I gained expertise in developing scalable systems, optimizing database performance, and ensuring secure and efficient backend solutions for modern applications. I have also learned to implement JWT authentication for secure user access and FCM notifications to enhance real-time communication, making applications more interactive and user-friendly."
     },
