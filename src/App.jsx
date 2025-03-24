@@ -219,7 +219,7 @@ function App() {
         draggable
         pauseOnHover
         theme="dark"
-        // transition={Bounce}
+      // transition={Bounce}
       />
       {loading ? <Loader /> : ""}
       {/* Navigation */}
@@ -311,41 +311,45 @@ function App() {
         </div>
 
         {/* Right Side - Large 3D Model */}
-        <div className="flex items-center justify-center w-full h-full lg:mt-0 z-40">
+        <div 
+        className="flex items-center justify-center w-full h-full lg:mt-0 z-40"
+        >
           <Canvas shadows camera={{ position: [-0, 2, 6], fov: 70 }} 
-          className="w-full h-auto aspect-square"
+          // className="w-full h-auto aspect-square"
           >
-            {/* Ambient Light */}
-            <ambientLight intensity={2.0} />
-            {/* Hemisphere Light for Soft Natural Illumination */}
-            <hemisphereLight skyColor={"#ffffff"} groundColor={"#444444"} intensity={1.2} />
+            <group className={"w-full h-auto aspect-square mt-10"}>
+              {/* Ambient Light */}
+              <ambientLight intensity={2.0} />
+              {/* Hemisphere Light for Soft Natural Illumination */}
+              <hemisphereLight skyColor={"#ffffff"} groundColor={"#444444"} intensity={1.2} />
 
-            {/* Directional Light for Shadows */}
-            <directionalLight position={[4, 8, 1]} intensity={3} castShadow />
+              {/* Directional Light for Shadows */}
+              <directionalLight position={[4, 8, 1]} intensity={3} castShadow />
 
-            {/* Additional Back Light (Fill Light) */}
-            <directionalLight position={[-4, 5, -3]} intensity={1.5} />
+              {/* Additional Back Light (Fill Light) */}
+              <directionalLight position={[-4, 5, -3]} intensity={1.5} />
 
-            {/* Additional Side Light */}
-            <pointLight position={[2, 3, 2]} intensity={1} />
+              {/* Additional Side Light */}
+              <pointLight position={[2, 3, 2]} intensity={1} />
 
-            {/* Ground Plane for Shadows */}
-            <mesh receiveShadow position={[0, -0.5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-              <planeGeometry args={[10, 10]} />
-              <shadowMaterial opacity={0.5} />
-            </mesh>
+              {/* Ground Plane for Shadows */}
+              <mesh receiveShadow position={[0, -0.5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+                <planeGeometry args={[10, 10]} />
+                <shadowMaterial opacity={0.5} />
+              </mesh>
 
-            {/* Orbit Controls - No Zoom */}
+              {/* Orbit Controls - No Zoom */}
 
-            {/* 3D Laptop Model - Adjusted Size and Rotation */}
-            <Suspense fallback={null}>
-              <Model
-                scale={[0.8, 0.8, 0.8]} // Reduced size
-                rotation={[0, 0, 0]} // Front-facing laptop
-                position={[-1.2, -2, 0.5]} // Adjusted positioning
-              />
-            </Suspense>
-            <OrbitControls enableZoom={false} minDistance={1} maxDistance={20} maxPolarAngle={1} minPolarAngle={1} enablePan={false} />
+              {/* 3D Laptop Model - Adjusted Size and Rotation */}
+              <Suspense fallback={null}>
+                <Model
+                  scale={[0.8, 0.8, 0.8]} // Reduced size
+                  rotation={[0, 0, 0]} // Front-facing laptop
+                  position={[-1.2, -2, 0.5]} // Adjusted positioning
+                />
+              </Suspense>
+              <OrbitControls enableZoom={false} minDistance={1} maxDistance={20} maxPolarAngle={1} minPolarAngle={1} enablePan={false} />
+            </group>
           </Canvas>
         </div>
       </section>
