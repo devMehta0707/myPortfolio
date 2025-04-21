@@ -22,7 +22,8 @@ import {
   TestTube,
   Boxes,
   Braces,
-  Network
+  Network,
+  Phone
 } from 'lucide-react';
 import { ParticlesBackground } from './components/ParticlesBackground';
 import { motion } from 'framer-motion';
@@ -305,6 +306,9 @@ function App() {
             </a>
             <a href="mailto:officialdev.mehta@gmail.com" className="transform hover:scale-110 transition-transform hover:text-amber-500">
               <Mail className="w-6 md:w-8 h-6 md:h-8" />
+            </a>
+            <a href="tel:+918847080824" className="transform hover:scale-110 transition-transform hover:text-amber-500">
+              <Phone className="w-6 md:w-8 h-6 md:h-8" />
             </a>
           </div>
           <ChevronDown className="w-10 md:w-12 h-10 md:h-12 mx-auto animate-bounce text-amber-500" />
