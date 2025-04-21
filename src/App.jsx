@@ -315,10 +315,10 @@ function App() {
         </div>
 
         {/* Right Side - Large 3D Model */}
-        <div 
-        className="flex items-center justify-center w-full h-full lg:mt-0 z-40"
+        <div
+          className="flex items-center justify-center w-full h-full lg:mt-0 z-40"
         >
-          <Canvas shadows camera={{ position: [-0, 2, 6], fov: 70 }} 
+          <Canvas shadows camera={{ position: [-0, 2, 6], fov: 70 }}
           // className="w-full h-auto aspect-square"
           >
             <group className={"w-full h-auto aspect-square mt-10"}>
@@ -585,17 +585,28 @@ function App() {
             </div>
             <div>
               <h3 className="text-xl font-bold mb-4">Connect</h3>
-              <div className="flex gap-4">
-                <a href="https://github.com/devMehta0707" target='_blank' className="text-gray-400 hover:text-amber-500 transition-colors">
-                  <Github className="w-6 h-6" />
+              <div className="gap-4 flex flex-col">
+                <a href="https://github.com/devMehta0707" target="_blank" className="flex items-center gap-2 text-gray-400 hover:text-amber-500 transition-colors">
+                  <Github className="w-5 h-5" />
+                  <span>https://github.com/devMehta0707</span>
                 </a>
-                <a href="https://www.linkedin.com/in/diwakar-mehta/" target='_blank' className="text-gray-400 hover:text-amber-500 transition-colors">
-                  <Linkedin className="w-6 h-6" />
+
+                <a href="https://www.linkedin.com/in/diwakar-mehta/" target="_blank" className="flex items-center gap-2 text-gray-400 hover:text-amber-500 transition-colors">
+                  <Linkedin className="w-5 h-5" />
+                  <span>https://www.linkedin.com/in/diwakar-mehta</span>
                 </a>
-                <a href="mailto:officialdev.mehta@gmail.com" className="text-gray-400 hover:text-amber-500 transition-colors">
-                  <Mail className="w-6 h-6" />
+
+                <a href="mailto:officialdev.mehta@gmail.com" className="flex items-center gap-2 text-gray-400 hover:text-amber-500 transition-colors">
+                  <Mail className="w-5 h-5" />
+                  <span>officialdev.mehta@gmail.com</span>
+                </a>
+
+                <a href="tel:+91-8847080824" className="flex items-center gap-2 text-gray-400 hover:text-amber-500 transition-colors">
+                  <Phone className="w-5 h-5" />
+                  <span>+91-884-7080-824</span>
                 </a>
               </div>
+
             </div>
           </div>
           <div className="mt-12 pt-8 border-t border-gray-800 text-center text-gray-400">
