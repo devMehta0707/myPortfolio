@@ -17,7 +17,7 @@ export function ParticlesBackground() {
         fullScreen: true,
         background: {
           color: {
-            value: "#000",
+            value: "281101",
           },
         },
         fpsLimit: 120,
